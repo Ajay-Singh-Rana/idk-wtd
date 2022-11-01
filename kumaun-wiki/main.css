@@ -1,0 +1,42 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.container{
+	position: absolute;
+	top: 30%;
+	bottom: 30%;
+	display: grid;
+	left: 30%;
+	right: 30%;
+	grid-template-columns: auto auto;
+	grid-template-rows: auto auto;
+	column-gap: 10vw;
+	justify-content: center;
+}
+
+.item1{
+	padding: 20vh;
+	border: 2px Solid Red;
+}
+
+.item2{
+	padding: 20vh;
+	border: 2px Solid Blue;
+}
+
+.video-container{
+	position: relative;
+	max-width: 20vw;
+	height: 30vh;
+}
+
+.video{
+	border: 2px Solid Green;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 70vw;
+	height: 50vh;
+}
