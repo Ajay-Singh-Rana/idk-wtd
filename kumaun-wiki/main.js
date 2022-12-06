@@ -1,12 +1,12 @@
 
 // toggling the paly/pause button
 button = document.getElementById("play")
-button.addEventListener("onclick",function toggle(){
-	if(button.innerHTML === "Play"){
-		button.innerHTML = "Pause";
+button.addEventListener("click",function(){
+	if(button.innerText === "Play"){
+		button.innerText = "Pause";
 	}	
 	else{
-		button.ineerHTML = "Play";
+		button.innerText = "Play";
 	}	
 	}
 );

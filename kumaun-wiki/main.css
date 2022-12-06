@@ -26,7 +26,9 @@
 	border: 2px Solid Blue;
 }
 
-.video-container{
+/* css for video containers,video and controls */
+
+.surround-blackout{
 	background-color: rgb(0,0,0);
 	position: fixed;
 	z-index: 1040;
@@ -37,17 +39,24 @@
 	left: 0;
 }
 
-.video{
-	border: 2px Solid Green;
+.video-container{
 	position: relative;
-	margin: auto;
-	width: 50%;
-	max-width: 64vw;
+	margin: 16vh auto;
+	width: 60vw;
+	height: 60vh;
+}
+
+.video{
+	display: block;
+	width: 100%;
+	z-index: 1;
 }
 
 .play-pause{
 	position: absolute;
-	top: 44vh;
-	left: 5vw;
-	z-index: 1;
+	bottom: 0;
+	left: 1vw;
+	z-index: 2;
 }
+
+/* css related to video and its controls end here */
