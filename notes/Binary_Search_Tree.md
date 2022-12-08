@@ -6,13 +6,14 @@ to be graeter than the root.
 Let's insert values 9,8,5,6,19,4 to a Binary Search Tree
 ```mermaid
 graph LR
-note([inserting 9 : new node created])
+note(["inserting 9 : new node created"])
 A[9]
 ```
 
 ```mermaid
 graph TD
-note(["inserting 8 : check 8 < 9 (False) \n insert left]")
+note(["inserting 8 : check 8 < 9 (False) \n insert left"])
+
 A[9] --> B[8]
 ```
 
