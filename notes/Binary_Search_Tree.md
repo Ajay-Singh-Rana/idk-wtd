@@ -3,23 +3,41 @@ Binary search tree is a special case of binary tree where left child
 values have to be smaller than the root and the right child values have
 to be graeter than the root.
 
+Let's insert values 9,8,5,6,19,4 to a Binary Search Tree
 ```mermaid
 graph LR
-Let's insert values 9,8,5,6,19,4 to a Binary Search Tree
-graph TD
-inserting 9 : new node created
+note([inserting 9 : new node created])
 A[9]
+```
+
+```mermaid
 graph TD
-inserting 8 : check 8 < 9 (False)
-	      insert left
-A --> B[8]
+note(["inserting 8 : check 8 < 9 (False) \n insert left]")
+A[9] --> B[8]
+```
+
+```mermaid
 graph TD
-inserting 5 : check 5 < 9 (True)
-	      insert left
+note(["inserting 5 : check 5 < 9 (True)
+	      move left
 	      check 5 < 8 (True)
-              insert left
-A --> B
+              insert left"])
+A[9] --> B[8]
 B --> C[5]
+```
+
+```mermaid
+graph TD
+note(["inserting 6 : check 6 < 9 (True)
+		     move left
+		     check 6 < 8 (True)
+		     move left
+		     check 6 < 5 (Flase)
+		     insert right"])
+A[9] --> B[8]
+B --> C[5]
+C --> D[nil]
+C --> E[6]
 ```
 
 ### Restrictions:
