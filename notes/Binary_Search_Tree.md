@@ -4,9 +4,22 @@ values have to be smaller than the root and the right child values have
 to be graeter than the root.
 
 ```mermaid
-Graph LR
-9-->8
-8-->7
+graph LR
+Let's insert values 9,8,5,6,19,4 to a Binary Search Tree
+graph TD
+inserting 9 : new node created
+A[9]
+graph TD
+inserting 8 : check 8 < 9 (False)
+	      insert left
+A --> B[8]
+graph TD
+inserting 5 : check 5 < 9 (True)
+	      insert left
+	      check 5 < 8 (True)
+              insert left
+A --> B
+B --> C[5]
 ```
 
 ### Restrictions:
