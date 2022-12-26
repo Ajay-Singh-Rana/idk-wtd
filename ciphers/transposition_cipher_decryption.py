@@ -1,32 +1,42 @@
-# h3avren
-import sys
+# h3avren 
 
+# imports
+import sys
+import math
+
+# cli arguments
 key = int(sys.argv[1])
 message = sys.argv[2]
 
-matrix = []
-translated = ''
-columns = (len(message) // key) if ((len(message) / key) / (int(len(message) / key)) == 0) else ((len(message) // key) + 1)
-for i in range(key):
-    #temp = []
-    for j in range(columns):
-        #if(((key * j) + (i + 1)) <30): # doesn't let the cell number pass beyond the message length
-        #   try:
-        #        temp.append(message[(i + j) + ((columns - 1) * i)])
-        #   except IndexError:
-        #      print((i + j) + ((columns - 1) * i))
-        if(((i + j) + ((columns - 1) * i)) < len(message)):
-            matrix.append(message[(i + j) + ((columns - 1) * i)])
-    #matrix.append(temp)
+# calculating number of columns in the matrix
+columns =  math.ceil(len(message)/key)
 
 translated = ''
+
+matrix = []
+count = 0 # to keep a track of the string index
+
+for i in range(key):
+    temp = []
+    for j in range(columns): 
+        """
+        (i + (j * key)) is the cell number calculated in a transposed
+        way and hence it should be always less than the message length
+        (optionally the count value shouldn't go above the message length 
+        either). Therefore a check has to be in place for the cell number.
+        A check could also be placed for the count variable going out of bounds.
+        Tough it won't serve any special purpose until and unless the cell logic 
+        is perfect.
+        """
+        if((i + (j * key)) < len(message)): # and count < len(message)):
+            temp.append(message[count])
+            count += 1
+    
+    matrix.append(temp)
+
 for j in range(columns):
     for i in range(key):
-        translated += matrix[(columns * i) + j] if (((columns*i) + j) < len(matrix)) else ''
+        if(j < len(matrix[i])):
+            translated += matrix[i][j]
 
-"""
-for j in range(columns):
-    for i in matrix:
-        translated += i[j]"""
-print(matrix)
 print(translated)
