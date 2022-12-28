@@ -5,6 +5,8 @@ import sys
 SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz \t\n'
 
 message = sys.argv[1]
+minimum_word_percentage = int(sys.argv[2]) if (len(sys.argv) > 2) else 45
+minimum_letter_percentage = int(sys.argv[3]) if (len(sys.argv) > 3) else 85
 
 letters_only_message = ''
 for i in message:
@@ -30,8 +32,11 @@ for word in letters_only_message:
 letters_percentage = (letters/len(message)*100)
 words_percentage = (matches/len(letters_only_message)*100) 
 
-if(letters_percentage > 85 and words_percentage > 20):
+if(letters_percentage > minimum_letter_percentage and 
+   words_percentage > minimum_word_percentage):
     print("English Detected..!")
+else:
+    print("English not Detected..!")
 
 print("Matches: ", matches)
 print("Letter's: ", letters)
