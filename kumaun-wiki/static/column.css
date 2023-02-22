@@ -1,0 +1,19 @@
+.container{
+    max-width: 96%;
+    margin: 0 auto;
+    background: rgb(126,234,189);
+}
+
+.row{
+    display: flex;
+    justify-content: space-around; 
+}
+
+.column{
+    border: 2px solid crimson;
+    padding: 0 1%;
+}
+
+h2 {
+    color: blueviolet;
+}

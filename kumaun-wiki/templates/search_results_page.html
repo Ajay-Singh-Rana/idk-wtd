@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Search - {{data["search_value"]}}</title>
+		<meta name='viewport' content='width=device-width,initial-scale=1'/>
+		<link href={{url_for('static',filename = 'search_results_page.css')}} rel='stylesheet' type='text/css'/>
+		<meta charset='UTF-8'/>
+	</head>
+	<body>
+		<main>
+			<section class="section_one">
+				<div class="header">
+					<form>
+						<input type="text" name="search_value" id="search" placeholder="Search..." />
+						<input type="submit" id="submit" value="Go"/>
+					</form>
+				</div>
+				<div class='logo-and-search-container'>
+					<div class='logo'>
+						<h1>{{data['search_value']}}</h1>
+					</div>
+				</div>
+			</section>
+			<section class="section_two">
+				<div class="search_result_container">
+					{%block content}
+					{%endblock%}
+				</div>
+			</section>
+		</main>
+	</body>
+</html>
+	
