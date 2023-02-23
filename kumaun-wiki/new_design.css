@@ -22,8 +22,40 @@ h1, h2, h3, h4, h5, h6{
     color : #511f1f;
 }
 
+.logo{
+    grid-area : logo;
+}
+
+.content{
+    grid-area : content;
+}
+
+.footer_class{
+    grid-area : footer;
+}
+
+.main{
+    grid-area :main;
+}
+
+.header{
+    grid-area : header;
+}
+
 #parent{
+    display : grid;
+    grid-template-areas : "logo header header header header"
+                          "content main main main main"
+                          "footer footer footer footer footer";
+    gap : 1%;
     max-width: 95%;
     margin : 0 auto;
 }
 
+/* to be fixed*/
+/*@media screen(max-width < 400){
+    .contents{
+        display : none;
+    }
+}
+*/
