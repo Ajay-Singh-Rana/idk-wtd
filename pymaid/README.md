@@ -52,7 +52,7 @@ Banana 25 Yellow
 Grape 40 Green
 ```
 Output:
-![Pie_Chart_Example](https://i.imgur.com/BdwR6QE.png)
+![Pie_Chart_Example](https://flic.kr/p/2ojrjjg)
 
 #### Donut
 Syntax:
@@ -72,7 +72,7 @@ Banana 25
 Grape 40 Green
 ```
 Output:
-![Donut_Example]()
+![Donut_Example](https://flic.kr/p/2ojpWSN)
 
 #### Line Plot
 Syntax:
@@ -84,10 +84,11 @@ Label1 Points(comma separated, without space) Marker(optional) Linestyle(optiona
 
 Example:
 ```pmd
+Line Line_Plot Lines
 x 4,6,7,9 o - Blue 
 y 1,5,3,6 x -- Lightblue
 z 4,9,8,1,6 * : Grey
 ```
 
 Output:
-![Line_Plot_Example]()
+![Line_Plot_Example](https://flic.kr/p/2ojrk97)
