@@ -12,7 +12,7 @@ commands = commands.split('\n')
 
 chart_header = commands[0].split(' ')
 if(chart_header[0].lower() == "pie"):
-    fig_name = commands[1] if (len(chart_header) > 1) else "pie_chart.png"
+    fig_name = chart_header[1] if (len(chart_header) > 1) else "pie_chart.png"
     labels_ = []
     pct_ = []
     colors_ = []
