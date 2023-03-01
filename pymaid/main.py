@@ -15,9 +15,9 @@ def draw_pie(chart_header, commands, width):
     colors_ = []
     explode_ = []
     for line in commands[1:]:
-        line = line.split(' ')
+        line = line.strip().split(' ')
         labels_.append(line[0])
-        pct_.append(line[1])
+        pct_.append(int(line[1]))
         if(len(line) > 2):
             colors_.append(line[2])
         else:
@@ -37,7 +37,7 @@ file_name = sys.argv[1]
 with open(file_name,'r') as file:
     commands = file.read()
 
-commands = commands.split('\n')
+commands = commands.strip().split('\n')
 chart_header = commands[0].split(' ')
 
 if(chart_header[0].lower() == "pie"):
@@ -48,7 +48,7 @@ elif(chart_header[0].lower() == 'line'):
     chart_title = chart_header[1] if (len(chart_header) > 1) else "line_plot.png"
     legend_title = chart_header[2] if(len(chart_header) > 2) else ""
     for line in commands[1:]:
-        line = line.split(" ")
+        line = line.strip().split(" ")
         label_ = line[0]
         points = [i for i in map(int, line[1].split(','))]
         marker_ = 'o' if (len(line) < 3) else line[2]
@@ -57,4 +57,20 @@ elif(chart_header[0].lower() == 'line'):
         plt.plot(points, label = label_, marker = marker_, linestyle = linestyle_, color = color_)
     plt.title(chart_title, loc = "left")
     plt.legend(loc = [1, 0.8], title = legend_title)
+    plt.savefig(chart_title + '.png')
+elif(chart_header[0].lower() == 'bar'):
+    chart_title = chart_header[1] if (len(chart_header) > 1) else "bar_plot.png"
+    legend_title = chart_header[2] if(len(chart_header) > 2) else ""
+    for line in commands[1:]:
+        line = line.strip().split(' ')
+        label_ = line[0]
+        x_points = [i for i in map(int,line[1].split(','))]
+        y_points = [j for j in map(int,line[2].split(','))]
+        color_ = choice(colors) if(len(line) < 4) else line[3]
+        width_ = 0.8 if(len(line) < 5) else float(line[4])
+        edgecolor_ = "Black" if(len(line) < 6) else line[5]
+        plt.bar(x_points, y_points, label = label_, color = color_,
+                width = width_, edgecolor = edgecolor_)
+    plt.title(chart_title, loc = 'left')
+    plt.legend(loc = [0.9, 0.85], title = legend_title)
     plt.savefig(chart_title + '.png')
