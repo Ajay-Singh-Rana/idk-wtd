@@ -6,14 +6,14 @@ for creating quick plots.
 
 ### Code Snippet
 ```Python
-Pie fruit_share.png
+Pie
 Apple 35
 Banana 46
 Grape 15
 Mango 4
 ```
 ### Output:
-![chart](https://i.imgur.com/ouWZf3J.png)
+![chart](assets/Demo.png)
 
 ### To Do
 - [x] Line Plots
@@ -52,7 +52,7 @@ Banana 25 Yellow
 Grape 40 Green
 ```
 Output:
-![Pie_Chart_Example](https://flic.kr/p/2ojrjjg)
+![Pie_Chart_Example](assets/Fruit_Share.png)
 
 #### Donut
 Syntax:
@@ -72,7 +72,7 @@ Banana 25
 Grape 40 Green
 ```
 Output:
-![Donut_Example](https://flic.kr/p/2ojpWSN)
+![Donut_Example](assets/donut.png)
 
 #### Line Plot
 Syntax:
@@ -91,4 +91,4 @@ z 4,9,8,1,6 * : Grey
 ```
 
 Output:
-![Line_Plot_Example](https://flic.kr/p/2ojrk97)
+![Line_Plot_Example](assets/Line_Plot.png)
