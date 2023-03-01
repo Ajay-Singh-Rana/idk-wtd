@@ -45,7 +45,7 @@ if(chart_header[0].lower() == "pie"):
 elif(chart_header[0].lower() == 'donut'):
     draw_pie(chart_header, commands, width = 0.35)
 elif(chart_header[0].lower() == 'line'):
-    chart_title = chart_header[1] if (len(chart_header) > 1) else "pie_chart.png"
+    chart_title = chart_header[1] if (len(chart_header) > 1) else "line_plot.png"
     legend_title = chart_header[2] if(len(chart_header) > 2) else ""
     for line in commands[1:]:
         line = line.split(" ")
