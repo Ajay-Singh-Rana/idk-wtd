@@ -18,6 +18,7 @@ Mango 4
 ### To Do
 - [x] Line Plots
 - [x] Pie Charts
+- [x] Bar Plot
 - [ ] Scatter Plots
 - [ ] Flowcharts
 - [ ] Documentation (underway)
@@ -92,3 +93,19 @@ z 4,9,8,1,6 * : Grey
 
 ##### Output:
 ![Line_Plot_Example](assets/Line_Plot.png)
+
+#### Bar Plot
+##### Syntax:
+```Syntax
+Bar Figure_Title(without spaces, optional) Legend_Title(without spaces, optional)
+Label X_Points(comma separated, without space) Y_Points(comma separated, without space) Color(optional) Width (optional) Edge-color(optional)
+```
+
+##### Example:
+```pmd
+Bar Sales 
+Sales 2012,2014,2015,2016 60,40,100,80 Red
+```
+
+##### Output:
+![Line_Plot_Example](assets/Sales.png)
