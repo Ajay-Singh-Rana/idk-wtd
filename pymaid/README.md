@@ -30,7 +30,7 @@ A GUI for the application is under development with the tool itself.
 A few screenshots of the GUI are hereby included:
 
 Main window                              | Compile Window 
-:----------------------------------------:--------------------------------:
+:---------------------------------------:|:--------------------------------:
 ![main_window](assets/main_window.png)   |
 
 ### Documentation
