@@ -29,9 +29,11 @@ Mango 4
 A GUI for the application is under development with the tool itself.
 A few screenshots of the GUI are hereby included:
 
-Main window                              | Compile Window 
+Main Window                              | Compile Window 
 :---------------------------------------:|:--------------------------------:
-![main_window](assets/main_window.png)   |
+![main_window](assets/main_window.png)   |![compile_window](assets/compiler.png)
+Editor Window                            |
+![editor_window](assets/editor.png)
 
 ### Documentation
 To use `pymaid` clone the repo and then create a `.pmd' file with the 
