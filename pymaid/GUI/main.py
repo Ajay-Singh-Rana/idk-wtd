@@ -30,10 +30,10 @@ class EditorFrame(Interface):
 
         self.textbox = tk.Text(self, width = 50, height = 8, background='#ffffff',
                                insertbackground='Black')
-        self.textbox.place(x = 100,y = 178)
+        self.textbox.place(x = 90,y = 178)
         
         self.frame = tk.Frame(self, bg = '#B39898', width = 410, height = 150)
-        self.frame.place(x = 110,y = 330)
+        self.frame.place(x = 100,y = 330)
 
         self.compile = tk.Button(self.frame, text = 'Compile', pady = 5,
                                    padx = 5, width = 10, relief = 'flat',
@@ -51,6 +51,12 @@ class EditorFrame(Interface):
                               activebackground = '#B39898', state = tk.DISABLED)
         self.show.grid(row = 1, column = 2, pady = 5, padx = 5)
 
+        self.home = tk.Button(self, text = 'Home', pady = 5, padx = 5,
+                              width = 10,
+                              relief = 'flat', bg = '#2abc8d', fg = '#000000',
+                              activebackground = '#B39898',
+                              command = lambda: self.controller.show_frame('MainFrame'))
+        self.home.place(x = 500, y = 178)
 
 class CompileFrame(Interface):
     def __init__(self, parent, controller):
@@ -85,6 +91,13 @@ class CompileFrame(Interface):
                               relief = 'flat', bg = '#2abc8d', fg = '#000000',
                               activebackground = '#B39898', state = tk.DISABLED)
         self.show.grid(row = 3, column = 1, padx = 5, pady = 5)
+
+        self.home = tk.Button(self, text = 'Home', pady = 5, padx = 5,
+                              width = 10,
+                              relief = 'flat', bg = '#2abc8d', fg = '#000000',
+                              activebackground = '#B39898',
+                              command = lambda: self.controller.show_frame('MainFrame'))
+        self.home.place(x = 500, y = 190)
 
     def browse(self):
         self.filename = filedialog.askopenfilename()
