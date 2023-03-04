@@ -2,6 +2,7 @@ import sys
 # import numpy as np
 from matplotlib import pyplot as plt
 from random import choice
+from parse_comments import parse_comments
 
 
 # colors
@@ -37,6 +38,7 @@ file_name = sys.argv[1]
 with open(file_name,'r') as file:
     commands = file.read()
 
+commands = parse_comments(commands) # parse (remove) comments
 commands = commands.strip().split('\n')
 chart_header = commands[0].strip().split(' ')
 
