@@ -23,7 +23,7 @@ Mango 4
 - [ ] Flowcharts
 - [ ] Documentation (underway)
 - [ ] GUI Application
-- [ ] Comment Support
+- [x] Comment Support
 
 ### GUI 
 A GUI for the application is under development with the tool itself.
@@ -43,6 +43,20 @@ To get the figure run:
 python3 main.py file.pmd
 ```
 
+#### Comments
+Comments are an important feature in programming languages but are not solely limited
+to them but are pretty useful wherever there is place for ambiguity to occur.
+It is pretty basic feature yet it took me quite some time to think of a way to parse these 
+comments. Even though I am not sure if my current solution will break or not but I am glad that I
+was able to code this one method of parsing comments.
+##### How to use comments
+Comments in `pymaid` start with a `#` and will end wherever a new line is found after the `#` symbol.
+A `#` within quotes as in `'#'` and `"#"` are considered as strings and hence ignored.
+```pmd
+# this is a comment
+Line Sales # this is also a comment
+"#Rice" 2015,2016,2017,2018 50,60,55,80 # "#Rice" is not a comment but this is
+```
 Some basic plot syntaxes:
 
 #### Pie Chart
