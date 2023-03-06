@@ -100,11 +100,19 @@ Grape 40 Green
 ![Donut_Example](assets/donut.png)
 
 #### Line Plot
+Line plots can be dra_wn in two ways. Multiple plots with single lines and a single plot with multiple lines.
+To draw mulitple plots the syntax is:
 ##### Syntax:
 ```Syntax
-Line Figure_Title(without spaces, optional) Legend_Title(without spaces, optional)
-Label1 Points(comma separated, without space) Marker(optional) Line-style(optional) Color(optional)
+Line Figure_Title(without spaces, optional) SeparateOrNot(1 if yes, default 0) Legend_Title(without spaces, optional)
+X_Label X_Points Y_Label Y_Points Marker(optional) Linestyle(optional) Color(Optional)
+Xn_Label Xn_Points Yn_Label Yn_Points Marker_n(optional) Linestyle_n(optional) Color_nOptional)
+```
 
+Syntax to draw single plot with multiple lines:
+```Syntax
+Line Figure_Title(without spaces, optional) SeparateOrNot(0 for no, default 0)
+X_Label X_Points Y_Label Y_Points Group_Label Marker(optional) Linestyle(Optional) Color(Optional)
 ```
 
 ##### Example:
@@ -131,5 +139,9 @@ Bar Sales
 Sales 2012,2014,2015,2016 60,40,100,80 Red
 ```
 
+#### Scatter Plot
+```Syntax
+Scatter Figure_Title(without spaces, optional) Legend_Title(without spaces, optional)
+Label X_Points(comma separated, without space) Y_Points(comma separated, without space) Colors(comma separated, optional) EdgeColors(comma separated, Optional) 
 ##### Output:
 ![Line_Plot_Example](assets/Sales.png)
