@@ -104,3 +104,18 @@ elif(chart_header[0].lower() == 'bar'):
     plt.title(chart_title, loc = 'left')
     plt.legend(loc = [0.9, 0.85], title = legend_title)
     plt.savefig(chart_title + '.png')
+
+elif(chart_header[0].lower() == 'scatter'):
+    chart_title = chart_header[1] if(len(chart_header) > 1) else "satter_plot.png"
+    legend_title = chart_header[2] if(len(chart_header) > 2) else ""
+    for line in commands[1:]:
+        line = line.strip().split(' ')
+        label_ = line[0]
+        x_points = [i for i in map(float,line[1].split(','))]
+        y_points = [j for j in map(float,line[2].split(','))]
+        color_ = choice(colors) if(len(line) < 4) else [j for j in map(str,line[3].split(','))]
+        edge_colors_ = choice(colors) if(len(line) < 5) else [j for j in map(str,line[4].split(','))]
+        plt.bar(x_points, y_points, label = label_, c = color_, edgecolors = edge_colors_)
+    plt.title(chart_title, loc = 'left')
+    plt.legend(loc = [0.9, 0.85], title = legend_title)
+    plt.savefig(chart_title + '.png')
