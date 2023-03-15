@@ -1,5 +1,6 @@
 # h3avren
 
+import sqlite3
 from flask import Flask, redirect, render_template, request, url_for
 
 app = Flask(__name__)
@@ -34,3 +35,19 @@ def login():
         print(request.form['username'])
         print(request.form['password'])
     return redirect(url_for('home'))
+
+@app.route('/create_article')
+def create_article():
+    return render_template('create_articles.html')
+
+@app.route('/post_article', methods=['POST'])
+def post_article():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        with sqlite3.connect('articles.db') as conn:
+            cur = conn.cursor()
+            cur.execute('INSERT INTO Articles (Title, Content) values (:title, :content)',
+                        {'title': title, 'content' : content})
+            conn.commit()
+        return  redirect(url_for('home'))
