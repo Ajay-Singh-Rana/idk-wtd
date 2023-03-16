@@ -3,6 +3,9 @@
 import sqlite3
 from flask import Flask, redirect, render_template, request, url_for
 
+# global variables
+logged_in = 0
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -30,10 +33,24 @@ def login_page():
 
 @app.route('/login', methods=['POST'])
 def login():
+    global logged_in
     if request.method == 'POST':
-        print(request.form)
-        print(request.form['username'])
-        print(request.form['password'])
+        username = request.form['username']
+        print(username)
+        password = request.form['password']
+        with sqlite3.connect('website.db') as conn:
+            cur = conn.cursor()
+            cur.execute('SELECT Password FROM Users WHERE Username'\
+                        ' = (:username)',{'username' : username})
+            try:
+                db_password = cur.fetchall()[0][0]
+                if(db_password == password):
+                    logged_in = 1
+                else:
+                    return ('Wrong Password Entered..!')
+            except:
+                return ('Username Not Found..!')
+
     return redirect(url_for('home'))
 
 @app.route('/create_article')
