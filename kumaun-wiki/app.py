@@ -10,14 +10,11 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/home')
-def home():
-    return render_template('home.html')
+def home(logged_in = logged_in):
+    return render_template('home.html', logged_in = logged_in)
 
 @app.route('/search', methods = ['POST'])
 def search():
-    print('hererwrwrwwrwwrwrwqrwrqwrqwer')
-    print(request.method)
-    print(request.form)
     if request.method == 'POST':
         topic = request.form['search_value'].lower()
         with open('articles.txt','r') as file:
@@ -36,7 +33,6 @@ def login():
     global logged_in
     if request.method == 'POST':
         username = request.form['username']
-        print(username)
         password = request.form['password']
         with sqlite3.connect('website.db') as conn:
             cur = conn.cursor()
@@ -51,7 +47,7 @@ def login():
             except:
                 return ('Username Not Found..!')
 
-    return redirect(url_for('home'))
+    return render_template('home.html', logged_in = logged_in)
 
 @app.route('/create_article')
 def create_article():
@@ -59,6 +55,7 @@ def create_article():
 
 @app.route('/post_article', methods=['POST'])
 def post_article():
+    global logged_in
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
@@ -67,4 +64,29 @@ def post_article():
             cur.execute('INSERT INTO Articles (Title, Content) values (:title, :content)',
                         {'title': title, 'content' : content})
             conn.commit()
-        return  redirect(url_for('home'))
+        return  redirect(url_for('home', logged_in = logged_in))
+
+@app.route('/signup_page')
+def signup_page():
+    return render_template('signup.html')
+
+@app.route('/signup', methods = ['POST'])
+def signup():
+    print('here')
+    print(request.method)
+    if request.method == 'POST':
+        print('here')
+        username = request.form['username']
+        password = request.form['password']
+        with sqlite3.connect('website.db') as conn:
+            cur = conn.cursor()
+            cur.execute('INSERT INTO Users (Username, Password)'\
+                        ' VALUES (:username, :password)',
+                        {'username' : username, 'password' : password})
+            conn.commit()
+        print(url_for('login_page'))
+        return redirect(url_for('login_page'))
+    else:
+        return 'Error..!'
+
+
