@@ -51,7 +51,10 @@ def login():
 
 @app.route('/create_article')
 def create_article():
-    return render_template('create_articles.html')
+    global logged_in
+    if(logged_in != 0):
+        return render_template('create_articles.html')
+    return "You need to Login First..!"
 
 @app.route('/post_article', methods=['POST'])
 def post_article():

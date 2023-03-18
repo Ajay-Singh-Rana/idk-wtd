@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Login</title>
-</head>
-<body>
-<form action='/login' method='POST'>
-<input type='text' placeholder='Username' name='username' />
-<input type='password' placeholder='Password' name='password'/>
-<input type='submit' value='Submit'/>
-</form>
-<p>Not a user..? <a href={{url_for('signup_page')}}>Signup</a></p>
-<a href={{url_for('create_article')}}>Create an Arctile</a>
-<a href={{url_for('home')}}>Home</a>
+    <head>
+        <title>Login</title>
+        <link href={{url_for('static', filename = 'login_signup_forms.css')}} rel='stylesheet' type='text/css'/>
+    </head>
+    <body>
+        <div class = "main">
+            <div class='form-container'>
+                <div class='logo'>
+                    <a href={{url_for("home")}}>
+                        <img src={{url_for("static", filename = "logo_new_small.png")}} alt='logo'/>
+                    </a>
+                </div>
+                <form action='/login' method='POST'>
+                    <input type='text' placeholder='Username' name='username' />
+                    <input type='password' placeholder='Password' name='password'/>
+                    <input id="submit" type='submit' value='Log In' />
+                </form>
+                <p>Not a user..? <a href={{url_for('signup_page')}}>Sign Up</a></p>
+                <p><a href={{url_for('create_article')}}>Create an Arctile</a></p>
+            </div>
+        </div>
 </body>
 </html>
