@@ -89,4 +89,10 @@ def signup():
     else:
         return 'Error..!'
 
+@app.route('/logout')
+def logout():
+    global logged_in
+    logged_in = 0
+    return redirect(url_for('home', logged_in = logged_in))
+
 

@@ -28,7 +28,11 @@
         <div class='login-signup'>
             <a href='{{url_for("login_page")}}'>Login</a>
             <a href='{{url_for("signup_page")}}'>Signup</a>
-        {% endif %}
         </div>
+        {% else %}
+        <div class='login-signup'>
+            <a href='{{url_for("logout")}}'>Logout</a>
+        </div>
+        {% endif %}
 	</body>
 </html>
