@@ -24,13 +24,14 @@
 		<div class='logo'>
 			<img id='logo' src={{url_for('static',filename = 'logo_new_small_vertical.png')}} alt='logo'/>
 		</div>
-        {% if logged_in != 1 %}
+        {% if not session['username'] %}
         <div class='login-signup'>
             <a href='{{url_for("login_page")}}'>Login</a>
             <a href='{{url_for("signup_page")}}'>Signup</a>
         </div>
         {% else %}
         <div class='login-signup'>
+            <span>{{session['username']}}</span>
             <a href='{{url_for("logout")}}'>Logout</a>
         </div>
         {% endif %}

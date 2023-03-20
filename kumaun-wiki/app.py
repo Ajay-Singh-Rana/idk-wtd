@@ -1,17 +1,16 @@
 # h3avren
 
 import sqlite3
-from flask import Flask, redirect, render_template, request, url_for
-
-# global variables
-logged_in = 0
+from flask import Flask, redirect, render_template, request, url_for, \
+                  session
 
 app = Flask(__name__)
+app.secret_key = b'\xb35a\xfa~k\xd4\xe9>\xb4\xd1\xa8\xbf\x89\xbc\x02'
 
 @app.route('/')
 @app.route('/home')
-def home(logged_in = logged_in):
-    return render_template('home.html', logged_in = logged_in)
+def home():
+    return render_template('home.html')
 
 @app.route('/search', methods = ['POST'])
 def search():
@@ -26,15 +25,12 @@ def search():
 
 @app.route('/login_page')
 def login_page():
-    global logged_in
-    if(logged_in):
-        print(logged_in)
-        return render_template('home.html',logged_in = logged_in)
+    if('username' in session):
+        return render_template('home.html')
     return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def login():
-    global logged_in
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -45,24 +41,22 @@ def login():
             try:
                 db_password = cur.fetchall()[0][0]
                 if(db_password == password):
-                    logged_in = 1
+                    session['username'] = username
                 else:
                     return ('Wrong Password Entered..!')
             except:
                 return ('Username Not Found..!')
 
-    return render_template('home.html', logged_in = logged_in)
+    return render_template('home.html')
 
 @app.route('/create_article')
 def create_article():
-    global logged_in
-    if(logged_in != 0):
+    if(session['username']):
         return render_template('create_articles.html')
     return "You need to Login First..!"
 
 @app.route('/post_article', methods=['POST'])
 def post_article():
-    global logged_in
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
@@ -71,7 +65,7 @@ def post_article():
             cur.execute('INSERT INTO Articles (Title, Content) values (:title, :content)',
                         {'title': title, 'content' : content})
             conn.commit()
-        return render_template('home.html', logged_in = logged_in)
+        return render_template('home.html')
 
 @app.route('/signup_page')
 def signup_page():
@@ -94,8 +88,6 @@ def signup():
 
 @app.route('/logout')
 def logout():
-    global logged_in
-    logged_in = 0
-    return render_template('home.html', logged_in = logged_in)
-
+    session.pop('username', None)
+    return render_template('home.html')
 
