@@ -26,6 +26,10 @@ def search():
 
 @app.route('/login_page')
 def login_page():
+    global logged_in
+    if(logged_in):
+        print(logged_in)
+        return render_template('home.html',logged_in = logged_in)
     return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
@@ -67,7 +71,7 @@ def post_article():
             cur.execute('INSERT INTO Articles (Title, Content) values (:title, :content)',
                         {'title': title, 'content' : content})
             conn.commit()
-        return  redirect(url_for('home', logged_in = logged_in))
+        return render_template('home.html', logged_in = logged_in)
 
 @app.route('/signup_page')
 def signup_page():
@@ -75,10 +79,7 @@ def signup_page():
 
 @app.route('/signup', methods = ['POST'])
 def signup():
-    print('here')
-    print(request.method)
     if request.method == 'POST':
-        print('here')
         username = request.form['username']
         password = request.form['password']
         with sqlite3.connect('website.db') as conn:
@@ -87,7 +88,6 @@ def signup():
                         ' VALUES (:username, :password)',
                         {'username' : username, 'password' : password})
             conn.commit()
-        print(url_for('login_page'))
         return redirect(url_for('login_page'))
     else:
         return 'Error..!'
@@ -96,6 +96,6 @@ def signup():
 def logout():
     global logged_in
     logged_in = 0
-    return redirect(url_for('home', logged_in = logged_in))
+    return render_template('home.html', logged_in = logged_in)
 
 
