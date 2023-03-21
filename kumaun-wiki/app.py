@@ -3,9 +3,11 @@
 import sqlite3
 from flask import Flask, redirect, render_template, request, url_for, \
                   session
+from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = b'\xb35a\xfa~k\xd4\xe9>\xb4\xd1\xa8\xbf\x89\xbc\x02'
+app.permanent_session_lifetime = timedelta(days = 90)
 
 @app.route('/')
 @app.route('/home')
@@ -41,6 +43,7 @@ def login():
             try:
                 db_password = cur.fetchall()[0][0]
                 if(db_password == password):
+                    session.permanent = True
                     session['username'] = username
                 else:
                     return ('Wrong Password Entered..!')
