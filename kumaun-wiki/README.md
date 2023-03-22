@@ -11,12 +11,12 @@ Creating a markdown interpreter
 - [x] Fenced Code block
 - [x] Blockquote
 - [x] Horizontal line
-- [ ] Bold text
+- [x] Bold text
 - [ ] Italicized text
 - [ ] Link 
 - [ ] Image
 - [ ] Code
-- [ ] Highlight
+- [x] Highlight
 - [ ] Task List
 - [ ] Strikethrough
 - [ ] Emoji

@@ -83,6 +83,8 @@ for line in text:
         new_text.append('<p>' + line + '</p>')
 
 for i in range(0,len(new_text)):
+    if(new_text[i][:6] == '<code>'):
+        continue
     count = 0
     while(new_text[i].find("**") != -1):
         index = new_text[i].find("**")
