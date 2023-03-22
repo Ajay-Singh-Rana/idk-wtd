@@ -103,6 +103,11 @@ for i in range(0,len(new_text)):
         else:
             new_text[i] = new_text[i][0 : index] + '</mark>' + new_text[i][index + 2 : ]
         count += 1
+    if(count%2 != 0):
+        index = new_text[i][::-1].find('>kram<') + 1 + 5   # 5 is the remaining length of the markup
+        new_index = len(new_text[i]) - index
+        new_text[i] = new_text[i][0: new_index] + "==" + new_text[i][new_index + 6 : ]
+    count = 0
 
 with open('xyz.html', 'w') as file:
     file.write('\n'.join(new_text))
