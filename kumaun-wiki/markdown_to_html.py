@@ -82,7 +82,30 @@ for line in text:
     else:
         new_text.append('<p>' + line + '</p>')
 
+for i in range(0,len(new_text)):
+    count = 0
+    while(new_text[i].find("**") != -1):
+        index = new_text[i].find("**")
+        if(count%2 == 0):
+            new_text[i] = new_text[i][0 : index] + '<b>' + new_text[i][index + 2 : ]
+        else:
+            new_text[i] = new_text[i][0 : index] + '</b>' + new_text[i][index + 2 : ]
+        count += 1
+    if(count%2 != 0):
+        index = new_text[i][::-1].find('>b<') + 1 + 2   # 2 is the length of the remaining string
+        new_index = len(new_text[i]) - index
+        new_text[i] = new_text[i][0: new_index] + "**" + new_text[i][new_index + 3 : ]
+    count = 0
+    while(new_text[i].find("==") != -1):
+        index = new_text[i].find("==")
+        if(count%2 == 0):
+            new_text[i] = new_text[i][0 : index] + '<mark>' + new_text[i][index + 2 : ]
+        else:
+            new_text[i] = new_text[i][0 : index] + '</mark>' + new_text[i][index + 2 : ]
+        count += 1
+
 with open('xyz.html', 'w') as file:
     file.write('\n'.join(new_text))
+
 
 print('\n'.join(new_text))
