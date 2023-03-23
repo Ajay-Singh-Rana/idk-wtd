@@ -18,6 +18,6 @@ Creating a markdown interpreter
 - [ ] Code
 - [x] Highlight
 - [ ] Task List
-- [ ] Strikethrough
+- [x] Strikethrough
 - [ ] Emoji
 
