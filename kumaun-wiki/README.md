@@ -15,7 +15,7 @@ Creating a markdown interpreter
 - [ ] Italicized text
 - [ ] Link 
 - [ ] Image
-- [ ] Code
+- [x] Code
 - [x] Highlight
 - [ ] Task List
 - [x] Strikethrough
