@@ -43,7 +43,7 @@ for line in text:
             new_text.append(line)
     elif(wait_flag):
         if(line == '```'):
-            markup = '<code>'
+            markup = '<code style="display: block">'
             for code in held_items:
                 markup += code + '<br/>'
             markup += '</code>'
@@ -151,7 +151,18 @@ for i in range(0,len(new_text)):
             new_index = len(temp_text[word_num]) - index
             temp_text[word_num] = temp_text[word_num][0 : new_index] + '~' + temp_text[word_num][new_index + 5 : ]  #5 is the length of the markup
     new_text[i] = ' '.join(temp_text)
-
+    count = 0
+    while(new_text[i].find('`') != -1):
+        index = new_text[i].find('`')
+        if(count%2 == 0):
+            new_text[i] = new_text[i][0 : index] + '<code>' + new_text[i][index + 1 : ]
+        else:
+            new_text[i] = new_text[i][0 : index] + '</code>' + new_text[i][index + 1 : ]
+        count += 1
+    if(count%2 != 0):
+        index = new_text[i][::-1].find('>edoc<') + 1 + 5    # 5 is the remaining length of the markup
+        new_index = len(new_text[i]) - index
+        new_text[i] = new_text[i][0 : new_index] + '`' + new_text[i][new_index + 6 : ]
 
 
 
