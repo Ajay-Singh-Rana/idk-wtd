@@ -20,4 +20,4 @@ Creating a markdown interpreter
 - [ ] Task List
 - [x] Strikethrough
 - [ ] Emoji
-
+- [x] Superscript
