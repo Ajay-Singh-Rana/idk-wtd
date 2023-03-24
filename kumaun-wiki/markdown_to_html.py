@@ -136,6 +136,22 @@ for i in range(0,len(new_text)):
             new_index = len(temp_text[word_num]) - index
             temp_text[word_num] = temp_text[word_num][0: new_index] + '^' + temp_text[word_num][new_index + 5 :]    # 5 is the length of the markup
     new_text[i] = ' '.join(temp_text)
+    temp_text = new_text[i].split(' ')
+    for word_num in range(len(temp_text)):
+        count = 0
+        while(temp_text[word_num].find('~') != -1):
+            index = temp_text[word_num].find('~')
+            if(count%2 == 0):
+                temp_text[word_num] = temp_text[word_num][0 : index] + '<sub>' + temp_text[word_num][index + 1 :]
+            else:
+                temp_text[word_num] = temp_text[word_num][0 : index] + '</sub>' + temp_text[word_num][index + 1 :]
+            count += 1
+        if(count%2 != 0):
+            index = temp_text[word_num][::-1].find('>bus<') + 1 + 4 # 4 is the remaining words in the markup
+            new_index = len(temp_text[word_num]) - index
+            temp_text[word_num] = temp_text[word_num][0 : new_index] + '~' + temp_text[word_num][new_index + 5 : ]  #5 is the length of the markup
+    new_text[i] = ' '.join(temp_text)
+
 
 
 
