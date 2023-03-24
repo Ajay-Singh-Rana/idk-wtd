@@ -21,3 +21,4 @@ Creating a markdown interpreter
 - [x] Strikethrough
 - [ ] Emoji
 - [x] Superscript
+- [x] Subscript
