@@ -54,7 +54,7 @@ def login():
 
 @app.route('/create_article')
 def create_article():
-    if(session['username']):
+    if(session.get('username')):
         return render_template('create_articles.html')
     return "You need to Login First..!"
 
