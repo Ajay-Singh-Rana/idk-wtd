@@ -1,0 +1,43 @@
+html, body{
+    box-sizing : border-box;
+    margin : 0;
+    padding : 0;
+    background-color : #fff;
+    color : #5c5c5c;
+}
+
+.editor{
+    position: absolute;
+    top : 10%;
+    left : 15%;
+    width : 70%;
+    height: 80%;
+    display : grid;
+    grid-template-rows : 8% auto 8%;
+    row-gap : 5%;
+}
+
+#title{
+    padding : 1%;
+}
+
+#data{
+    width : 100%;
+    border : 0.2vw Solid Black;
+}
+
+#tools{
+    padding : 1%;
+    border: none;
+    background-color : #511f1f;
+}
+
+textarea{
+    padding : 2%;
+    border : none;
+    outline : none;
+    width : 100%;
+    box-sizing : border-box;
+    resize : vertical;
+}
+

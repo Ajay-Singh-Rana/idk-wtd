@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <head>
 <title> Create Article</title>
+<link href={{url_for('static', filename='editor.css')}} rel='stylesheet' type='text/css'/>
 </head>
 <body>
 <form action='/post_article' method = 'POST'>
-<input name='title' placeholder='Title' />
-<textarea name = 'content' placeholder='Content..'></textarea>
-<input type='submit' value='post' />
+<div class='editor'>
+<input id='title' name='title' placeholder='Title' />
+<div id='data'>
+<div id='tools'>
+<button>Bold</button>
+<button>Italic</button>
+<button>Strikethrough</button>
+</div>
+<textarea id='content' rows=20 name = 'content' placeholder='Content..'>
+</textarea>
+</div>
+<input id='submit' type='submit' value='post' />
+</div>
 </form>
 </body>
 </html>
