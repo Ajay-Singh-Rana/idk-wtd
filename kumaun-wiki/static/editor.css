@@ -13,15 +13,21 @@ html, body{
     width : 70%;
     height: 80%;
     display : grid;
-    grid-template-rows : 8% auto 8%;
+    grid-template-areas : 
+        'title title'
+        'data data'
+        'preview post';
     row-gap : 5%;
+    column-gap : 2%;
 }
 
 #title{
     padding : 1%;
+    grid-area : title;
 }
 
 #data{
+    grid-area : data;
     width : 100%;
     border : 0.2vw Solid Black;
 }
@@ -38,6 +44,17 @@ textarea{
     outline : none;
     width : 100%;
     box-sizing : border-box;
-    resize : vertical;
+    resize : none;
 }
+
+#preview{
+    box-sizing : border-box;
+    grid-area : preview;
+}
+
+#post{
+    box-sizing : border-box;
+    grid-area : post;
+}
+
 

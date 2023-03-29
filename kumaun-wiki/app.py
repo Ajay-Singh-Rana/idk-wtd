@@ -4,6 +4,7 @@ import sqlite3
 from flask import Flask, redirect, render_template, request, url_for, \
                   session
 from datetime import timedelta
+import subprocess
 
 app = Flask(__name__)
 app.secret_key = b'\xb35a\xfa~k\xd4\xe9>\xb4\xd1\xa8\xbf\x89\xbc\x02'
@@ -63,10 +64,17 @@ def post_article():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
-        with sqlite3.connect('articles.db') as conn:
+        if(request.form['action'] == 'Preview'):
+            data = {'title':title, 'content' : content}
+            @app.route('/preview')
+            def preview():
+                return render_template('preview.html',data=data)
+            return redirect(url_for('preview'))
+
+        with sqlite3.connect('website.db') as conn:
             cur = conn.cursor()
-            cur.execute('INSERT INTO Articles (Title, Content) values (:title, :content)',
-                        {'title': title, 'content' : content})
+            cur.execute('INSERT INTO Articles (Title, Content,Author) values (:title, :content, :author)',
+                        {'title': title, 'content' : content, 'author': 'Ajay'})
             conn.commit()
         return render_template('home.html')
 
