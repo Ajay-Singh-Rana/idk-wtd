@@ -12,7 +12,7 @@ Creating a markdown interpreter
 - [x] Blockquote
 - [x] Horizontal line
 - [x] Bold text
-- [ ] Italicized text
+- [x] Italicized text
 - [ ] Link 
 - [ ] Image
 - [x] Code
