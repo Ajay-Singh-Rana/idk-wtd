@@ -163,11 +163,22 @@ for i in range(0,len(new_text)):
         index = new_text[i][::-1].find('>edoc<') + 1 + 5    # 5 is the remaining length of the markup
         new_index = len(new_text[i]) - index
         new_text[i] = new_text[i][0 : new_index] + '`' + new_text[i][new_index + 6 : ]
+    count = 0
+    while(new_text[i].find('*') != -1):
+        index = new_text[i].find('*')
+        if(count%2 == 0):
+            new_text[i] = new_text[i][0 : index] + '<em>' + new_text[i][index + 1 :]
+        else:
+            new_text[i] = new_text[i][0 : index] + '</em>' + new_text[i][index + 1 : ]
+        count += 1
+    if(count%2 != 0):
+        index = new_text[i][::-1].find('>me<') + 1 + 3   # add 1 as index starts at 0 and add 2 as it is the remaining length of the string
+        new_index = len(new_text[i]) - index
+        new_text[i] = new_text[i][0 : new_index] + '*' + new_text[i][new_index + 4 : ]
 
 
 
 with open('xyz.html', 'w') as file:
     file.write('\n'.join(new_text))
-
 
 print('\n'.join(new_text))
