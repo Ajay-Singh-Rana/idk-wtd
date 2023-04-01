@@ -18,6 +18,13 @@ def run_prompt():   # this function launches the REPL
             break;
         run(line)
 
+def report(line_num, where, message):
+    print(f"[line {line_num} ] Error {where} : {message}")
+    had_error = True;
+
+def error(line_num, message):
+    report(line_num, "", message)
+
 def run(line):  # Runs the code line by line
     for i in line:
         print(i)
