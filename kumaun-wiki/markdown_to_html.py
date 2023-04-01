@@ -180,6 +180,20 @@ for i in range(0,len(new_text)):
         index = new_text[i][::-1].find('>me<') + 1 + 3   # add 1 as index starts at 0 and add 2 as it is the remaining length of the string
         new_index = len(new_text[i]) - index
         new_text[i] = new_text[i][0 : new_index] + '*' + new_text[i][new_index + 4 : ]
+   
+    # finding and replacing images
+    while(new_text[i].find('![') != -1):
+        image_index = new_text[i].find('![')
+        alt_text_end = new_text[i][image_index : ].find('](')
+        if(alt_text_end != -1):
+            alt_text = new_text[i][image_index + 2 : image_index + alt_text_end]
+            image_end_index = new_text[i][image_index + alt_text_end + 1 : ].find(')')
+            if(image_end_index != -1):
+                image_end_index += image_index + alt_text_end + 1
+                link = new_text[i][image_index + alt_text_end + 2 : image_end_index]
+        sub_string = new_text[i][image_index : image_end_index + 1]
+        image_markup = f'<img src="{link}" alt="{alt_text}" />'
+        new_text[i] = new_text[i].replace(sub_string, image_markup)
     # finding and replacing links
     while(new_text[i].find('[') != -1):
         link_index = new_text[i].find('[')
@@ -191,9 +205,8 @@ for i in range(0,len(new_text)):
                 link_end_index += link_index + link_text_end + 1
                 link = new_text[i][link_index + link_text_end + 2 : link_end_index]
         sub_string = new_text[i][link_index : link_end_index + 1]
-        link_markup = f"<a href={link}>{link_text}</a>"
+        link_markup = f"<a href='{link}'>{link_text}</a>"
         new_text[i] = new_text[i].replace(sub_string, link_markup)
-
 
 with open('xyz.html', 'w') as file:
     file.write('\n'.join(new_text))
