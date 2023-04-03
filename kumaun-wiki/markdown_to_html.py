@@ -24,9 +24,63 @@ ordered_flag = False
 ordered_list_items = []
 unordered_flag = False
 unordered_list_items = []
+table_flag = False
+table_details = {"columns" : [],"alignment":[]}
 
 for line in text:
-    if(checkbox_flag):
+    if(table_flag):
+        if(line == "endtable%"):
+            alignment = table_details['alignment']
+            header = table_details.get('header')
+            columns = table_details.get('columns')
+            if(alignment == []):
+                alignment = ['center' for i in range(len(max(columns)))]
+            if(header):
+                markup = "<table><tr>"
+                for (data,align) in zip(header,alignment):
+                    markup += f"<th style='text-align : {align}'>{data}</th>"
+                markup += "</tr>"
+            else:
+                markup = "<table>"
+            for col in columns:
+                markup += "<tr>"
+                for (data,align) in zip(col,alignment):
+                    markup += f"<td style='text-align: {align}'>{data}</td>"
+                markup+= "</tr>"
+            markup += "</table>"
+            new_text.append(markup)
+            table_flag = False
+            no_flag = True
+            table_details = {"columns" : [], "alignment" : []}
+            continue
+        else:
+            if(line[0] == "!"):
+                line = line[1:].split("|")
+                alignment = []
+                headers = []
+                for col in line:
+                    col = col.strip()
+                    if(col[0] == ":" and col[-1] == ":"):
+                        alignment.append("center")
+                        headers.append(col[1:-1])
+                    elif(col[0] == ":"):
+                        alignment.append("left")
+                        headers.append(col[1:])
+                    elif(col[-1] == ":"):
+                        alignment.append("right")
+                        headers.append(col[:-1])
+                    else:
+                        alignment.append("center")
+                        headers.append(col[1 : -1])
+
+                table_details["header"] = headers
+                table_details["alignment"] = alignment
+            else:
+                columns_data = line.split("|")
+                columns = table_details['columns']
+                columns.append(columns_data)
+                table_details["columns"] = columns
+    elif(checkbox_flag):
         if(line[0:6] in ["- [ ] ", "- [x] ", "- [X] "]):
             if(line[3] == " "):
                 checkbox_list_items[line[6 : ]] = False
@@ -44,7 +98,6 @@ for line in text:
             checkbox_flag = False
             no_flag = True
             new_text.append(markup)
-            # new_text.append('<p>' + line + '</p>')
     elif(ordered_flag):
         if((line[0].isnumeric() == True) and line[1] == '.' and line[2] == ' '):
             ordered_list_items.append(line[3:])
@@ -57,7 +110,6 @@ for line in text:
             ordered_flag = False
             no_flag = True
             new_text.append(markup)
-            # new_text.append('<p>' + line + '</p>')
     elif(unordered_flag):
         if((line[0] == '-' or line[0] == '*' or line[0] == '+') and line[1] == ' '):
             unordered_list_items.append(line[2 : ])
@@ -70,7 +122,6 @@ for line in text:
             unordered_flag = False
             no_flag = True
             new_text.append(markup)
-            # new_text.append('<p>' + line + '</p>') 
     elif(wait_flag):
         if(line == '```'):
             markup = '<code style="display: block">'
@@ -122,6 +173,9 @@ for line in text:
             unordered_flag = True
             no_flag = False
             unordered_list_items.append(line[2 : ])
+        elif(line == "%starttable"):
+            table_flag = True
+            no_flag = False
         else:
             new_text.append('<p>' + line + '</p>')
 
