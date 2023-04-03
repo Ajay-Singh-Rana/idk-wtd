@@ -13,7 +13,11 @@ text = text.split('\n')
               ':heart:' : , ':fire:' : , ':poop:' : ,
               ':+1:' : , ':-1:' : , ':raised_hands:' : , ':point_up:' : 
             }"""
+
+no_flag = True
 new_text = []
+checkbox_flag = False
+checkbox_list_items = {}
 wait_flag = False
 held_items = []
 ordered_flag = False
@@ -22,9 +26,28 @@ unordered_flag = False
 unordered_list_items = []
 
 for line in text:
-    if(ordered_flag):
+    if(checkbox_flag):
+        if(line[0:6] in ["- [ ] ", "- [x] ", "- [X] "]):
+            if(line[3] == " "):
+                checkbox_list_items[line[6 : ]] = False
+            else:
+                checkbox_list_items[line[6 : ]] = True
+        else:
+            markup = "<ul style='list-style-type : none;'>"
+            for (text,checked) in checkbox_list_items.items():
+                if(checked):
+                    markup += f'<li><input type="checkbox" checked="{checked}"/>{text}</li>'
+                else:
+                    markup += f'<li><input type="checkbox"/>{text}</li>'
+            markup += "</ul>"
+            checkbox_list_items = {}
+            checkbox_flag = False
+            no_flag = True
+            new_text.append(markup)
+            # new_text.append('<p>' + line + '</p>')
+    elif(ordered_flag):
         if((line[0].isnumeric() == True) and line[1] == '.' and line[2] == ' '):
-            ordered_list_items.append(line)
+            ordered_list_items.append(line[3:])
         else:
             markup = '<ol>'
             for li in ordered_list_items:
@@ -32,11 +55,12 @@ for line in text:
             markup += '</ol>'
             ordered_list_items = []
             ordered_flag = False
+            no_flag = True
             new_text.append(markup)
-            new_text.append('<p>' + line + '</p>')
+            # new_text.append('<p>' + line + '</p>')
     elif(unordered_flag):
         if((line[0] == '-' or line[0] == '*' or line[0] == '+') and line[1] == ' '):
-            unordered_list_items.append(line)
+            unordered_list_items.append(line[2 : ])
         else:
             markup = '<ul>'
             for li in unordered_list_items:
@@ -44,8 +68,9 @@ for line in text:
             markup += '</ul>'
             unordered_list_items = []
             unordered_flag = False
+            no_flag = True
             new_text.append(markup)
-            new_text.append(line)
+            # new_text.append('<p>' + line + '</p>') 
     elif(wait_flag):
         if(line == '```'):
             markup = '<code style="display: block">'
@@ -54,38 +79,51 @@ for line in text:
             markup += '</code>'
             new_text.append(markup)
             wait_flag = False
+            no_flag = True
             held_items = []
         else:
             held_items.append(line)
-    elif(line[0] == '#'):
-        count = 1
-        flag = False
-        for literal in line[1:]:
-            if(literal == '#'):
-                count += 1
-            elif(literal == ' '):
-                flag = True
-                break
+    
+    if(no_flag):
+        if(line[0] == '#'):
+            count = 1
+            flag = False
+            for literal in line[1:]:
+                if(literal == '#'):
+                    count += 1
+                elif(literal == ' '):
+                    flag = True
+                    break
+                else:
+                    break
+            if(flag and count <= 6):
+                new_text.append(f'<h{count}>' + line[(count + 1):]+ f'</h{count}>')
             else:
-                break
-        if(flag and count <= 6):
-            new_text.append(f'<h{count}>' + line[(count + 1):]+ f'</h{count}>')
+                new_text.append('<p>' + line + '</p>')
+        elif(line[0] == '>' and line[1] == ' '):
+            new_text.append('<blockquote style="border-left: 1vw Solid #2a8bdc;">' + line[2:] + '</blockquote>')
+        elif(line == '***' or line == '___' or line == '---'):
+            new_text.append('<hr/>')
+        elif(line == '```'):
+            wait_flag = True
+            no_flg = False
+        elif((line[0].isnumeric() == True) and line[1] == '.' and line[2] == ' '):
+            ordered_flag = True
+            no_flag = False
+            ordered_list_items.append(line[3 :])
+        elif(line[0 : 6] in ["- [ ] ", "- [x] ", "- [X] "]):
+            checkbox_flag = True
+            no_flag = False
+            if(line[3] == " "):
+                checkbox_list_items[line[6 : ]] = False
+            else:
+                checkbox_list_items[line[6 : ]] = True
+        elif((line[0] == '-' or line[0] == '+' or line[0] == '*') and line[1] == ' '):
+            unordered_flag = True
+            no_flag = False
+            unordered_list_items.append(line[2 : ])
         else:
             new_text.append('<p>' + line + '</p>')
-    elif(line[0] == '>' and line[1] == ' '):
-        new_text.append('<blockquote style="border-left: 1vw Solid #2a8bdc;">' + line[2:] + '</blockquote>')
-    elif(line == '***' or line == '___' or line == '---'):
-        new_text.append('<hr/>')
-    elif(line == '```'):
-        wait_flag = True
-    elif((line[0].isnumeric() == True) and line[1] == '.' and line[2] == ' '):
-       ordered_flag = True
-       ordered_list_items.append(line)
-    elif((line[0] == '-' or line[0] == '+' or line[0] == '*') and line[1] == ' '):
-        unordered_flag = True
-        unordered_list_items.append(line)
-    else:
-        new_text.append('<p>' + line + '</p>')
 
 for i in range(0,len(new_text)):
     if(new_text[i][:6] == '<code>'):
@@ -191,9 +229,11 @@ for i in range(0,len(new_text)):
             if(image_end_index != -1):
                 image_end_index += image_index + alt_text_end + 1
                 link = new_text[i][image_index + alt_text_end + 2 : image_end_index]
-        sub_string = new_text[i][image_index : image_end_index + 1]
-        image_markup = f'<img src="{link}" alt="{alt_text}" />'
-        new_text[i] = new_text[i].replace(sub_string, image_markup)
+            sub_string = new_text[i][image_index : image_end_index + 1]
+            image_markup = f'<img src="{link}" alt="{alt_text}" />'
+            new_text[i] = new_text[i].replace(sub_string, image_markup)
+        else:
+            break
     # finding and replacing links
     while(new_text[i].find('[') != -1):
         link_index = new_text[i].find('[')
@@ -204,11 +244,13 @@ for i in range(0,len(new_text)):
             if(link_end_index != -1):
                 link_end_index += link_index + link_text_end + 1
                 link = new_text[i][link_index + link_text_end + 2 : link_end_index]
-        sub_string = new_text[i][link_index : link_end_index + 1]
-        link_markup = f"<a href='{link}'>{link_text}</a>"
-        new_text[i] = new_text[i].replace(sub_string, link_markup)
+            sub_string = new_text[i][link_index : link_end_index + 1]
+            link_markup = f"<a href='{link}'>{link_text}</a>"
+            new_text[i] = new_text[i].replace(sub_string, link_markup)
+        else:
+            break
 
 with open('xyz.html', 'w') as file:
     file.write('\n'.join(new_text))
 
-print('\n'.join(new_text))
+#print('\n'.join(new_text))
