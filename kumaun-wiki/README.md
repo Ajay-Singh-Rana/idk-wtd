@@ -20,6 +20,6 @@ Creating a markdown interpreter
 - [x] Task List
 - [x] Strikethrough
 - [ ] Emoji (yet to decide it's usability)
-- [ ] Tables (yet to decide it's pros over traditional html tables)
+- [x] Tables
 - [x] Superscript
 - [x] Subscript
