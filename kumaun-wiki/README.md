@@ -13,12 +13,13 @@ Creating a markdown interpreter
 - [x] Horizontal line
 - [x] Bold text
 - [x] Italicized text
-- [ ] Link 
-- [ ] Image
+- [x] Link 
+- [x] Image
 - [x] Code
 - [x] Highlight
-- [ ] Task List
+- [x] Task List
 - [x] Strikethrough
-- [ ] Emoji
+- [ ] Emoji (yet to decide it's usability)
+- [ ] Tables (yet to decide it's pros over traditional html tables)
 - [x] Superscript
 - [x] Subscript
