@@ -23,3 +23,4 @@ Creating a markdown interpreter
 - [x] Tables
 - [x] Superscript
 - [x] Subscript
+- [x] Spoiler
