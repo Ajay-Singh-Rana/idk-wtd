@@ -5,8 +5,28 @@ filename = sys.argv[1]
 with open(filename, 'r') as file:
     text = file.read()
 
+
+# escaping cahracters using '\'
+flag_index = None
+escaped_characters = []
+#word = ''
+for index,char in enumerate(text):
+    if(char == '\\'):
+        index_of_space = index + text[index : ].find(' ')
+        word = text[index : index_of_space]
+        escaped_characters.append(word)
+
+for word in escaped_characters:
+    text = text.replace(word,'\\')
+"""    
+    index = text.find('\\')
+    escaped_characters.append(text[index + 1])
+    text = text.replace(text[index + 1], '\\')
+    print(text)
+"""
 text = text.strip()
 text = text.split('\n')
+
 
 """emoji_dict = {':smile:': , ':heart_eyes:' : , ':wink:' : , ':expressionless:' : ,
               ':scream:' : , ':rage:' : , ':pensive:' : , ':sob:' : , ':joy:' : , ':mask:' : ,
@@ -314,6 +334,13 @@ for i in range(0,len(new_text)):
         else:
             break
 
+# forming the text to be written and re-inserting escaped characters
+new_text = '\n'.join(new_text)
+for word in escaped_characters:
+    index = new_text.find('\\')
+    new_text = new_text[:index] + word[1 : ] + new_text[index + 1 :]
+
+# writing the markup to a file
 with open('xyz.html', 'w') as file:
     initials = """<!DOCTYPE html>
                   <html>
@@ -324,6 +351,7 @@ with open('xyz.html', 'w') as file:
                """
     final = "</body></html>"
     file.write(initials)
-    file.write('\n'.join(new_text))
+    file.write(new_text)
+    #file.write('\n'.join(new_text))
     file.write(final)
 #print('\n'.join(new_text))
