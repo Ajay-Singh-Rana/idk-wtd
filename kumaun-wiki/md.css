@@ -1,0 +1,10 @@
+.spoiler{
+    padding : 0.5%;
+    color : rgb(128, 128 , 128);
+    background-color : rgb(128, 128, 128);
+}
+
+.spoiler:hover{
+    color : black;
+}
+

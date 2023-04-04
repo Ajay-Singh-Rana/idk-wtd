@@ -272,7 +272,17 @@ for i in range(0,len(new_text)):
         index = new_text[i][::-1].find('>me<') + 1 + 3   # add 1 as index starts at 0 and add 2 as it is the remaining length of the string
         new_index = len(new_text[i]) - index
         new_text[i] = new_text[i][0 : new_index] + '*' + new_text[i][new_index + 4 : ]
-   
+    # count = 0     # need not reset as it is not required to do so for spoilers
+    while(new_text[i].find('>!') != -1):
+        start_index = new_text[i].find('>!')
+        end_index = new_text[i].find('!<')
+        if(end_index == -1):
+            break
+        else:
+            new_text[i] = new_text[i][: start_index] + "<span class='spoiler'>" \
+                          + new_text[i][start_index + 2 : end_index] + "</span>" \
+                          + new_text[i][end_index + 2 : ]
+            count += 1
     # finding and replacing images
     while(new_text[i].find('![') != -1):
         image_index = new_text[i].find('![')
@@ -305,6 +315,15 @@ for i in range(0,len(new_text)):
             break
 
 with open('xyz.html', 'w') as file:
+    initials = """<!DOCTYPE html>
+                  <html>
+                  <head>
+                    <link href='md.css' rel='stylesheet' type='text/css' />
+                  </head>
+                  <body>
+               """
+    final = "</body></html>"
+    file.write(initials)
     file.write('\n'.join(new_text))
-
+    file.write(final)
 #print('\n'.join(new_text))
