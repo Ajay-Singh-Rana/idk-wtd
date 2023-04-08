@@ -3,38 +3,46 @@
 # imports
 import sys
 import os
+from scanner import Scanner
 
-def run_file(path):     # this function is used to run a script
-    with open(path, 'r') as file:
-        text = file.read()
-    run(text)
+class Lox:
+    def __init__(self):
+        self.had_error = False
+    
+    def run_file(self,path):     # this function is used to run a script
+        with open(path, 'r') as file:
+            text = file.read()
+        run(text)
 
-def run_prompt():   # this function launches the REPL
-    while True:
-        try:
-            print(">", end = " ")
-            line = input()
-        except EOFError:
-            break;
-        run(line)
+    def run_prompt(self):   # this function launches the REPL
+        while True:
+            try:
+                print(">", end = " ")
+                line = input()
+            except EOFError:
+                break;
+            self.run(line)
 
-def report(line_num, where, message):
-    print(f"[line {line_num} ] Error {where} : {message}")
-    had_error = True;
+    def report(self,line_num, where, message):
+        print(f"[line {line_num} ] Error {where} : {message}")
+        self.had_error = True;
 
-def error(line_num, message):
-    report(line_num, "", message)
+    def error(self,line_num, message):
+        self.report(line_num, "", message)
 
-def run(line):  # Runs the code line by line
-    for i in line:
-        print(i)
+    def run(self,line):  # Runs the code line by line
+        scanner_obj = Scanner(line)
+        tokens = scanner_obj.scan_tokens()
+        for i in tokens:
+            print(i)
 
+interpreter = Lox()
 if(len(sys.argv) > 2):
     print("Usage : python3 lox.py [script]")
     sys.exit(64)
 elif(len(sys.argv) == 2):
-    run_file(sys.argv[1])
+    interpreter.run_file(sys.argv[1])
 else:
-    run_prompt();
+    interpreter.run_prompt();
 
 

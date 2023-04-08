@@ -22,7 +22,7 @@ class TokenType(enum.Enum):
     EQUAL = 14
     EQUAL_EQUAL = 15
     GREATER = 16
-    GREATER+EQUAL = 17
+    GREATER_EQUAL = 17
     LESS = 18
     LESS_EQUAL = 19
 
@@ -53,7 +53,7 @@ class TokenType(enum.Enum):
 
 
 class Token:
-    def __init__(self, type : TokenType, lexeme : str, literal, line ; int):
+    def __init__(self, type : TokenType, lexeme : str, literal, line : int):
         self.type = type
         self.lexeme = lexeme
         self.literal = literal
