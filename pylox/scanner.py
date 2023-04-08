@@ -3,9 +3,10 @@
 from token import Token, TokenType as tt
 
 class Scanner:
-    def __init__(self, source : str):
+    def __init__(self, source : str, interpreter):
         self.source = source
         self.tokens = []
+        self.interpreter = interpreter
 
         self.start = 0
         self.current = 0
@@ -64,8 +65,7 @@ class Scanner:
             if(self.isdigit(char)):
                 self.number()
             else:
-                print("Unexpected character at line ", self.line)
-                # Lox.error(self.line, "Unexpected character.")
+                self.interpreter.error(self.line, "Unexpected character.")
     
     def isdigit(self, char):
         return char >= '0' and char <= '9'
@@ -92,8 +92,7 @@ class Scanner:
                 self.line += 1
             self.advance()
         if(self.is_at_end()):
-            print("Unterminating string at line ", self.line)
-            # Lox.error(self.line,"Unterminating string..!")
+            self.interpreter.error(self.line,"Unterminating string..!")
             return
         self.advance()  # the closing ".
         string = self.source[self.start + 1 : self.current - 1]

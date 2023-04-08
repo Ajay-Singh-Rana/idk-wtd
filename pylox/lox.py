@@ -31,7 +31,7 @@ class Lox:
         self.report(line_num, "", message)
 
     def run(self,line):  # Runs the code line by line
-        scanner_obj = Scanner(line)
+        scanner_obj = Scanner(line, self)
         tokens = scanner_obj.scan_tokens()
         for i in tokens:
             print(i)
