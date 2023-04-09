@@ -11,6 +11,22 @@ class Scanner:
         self.start = 0
         self.current = 0
         self.line = 1
+        self.keywords = {"and" : tt.AND,
+                         "class" : tt.CLASS,
+                         "else" : tt.ELSE,
+                         "false" : tt.FALSE,
+                         "for" : tt.FOR,
+                         "fun" : tt.FUN,
+                         "if" : tt.IF,
+                         "nil" : tt.NIL,
+                         "or" : tt.OR,
+                         "print" : tt.PRINT,
+                         "return" : tt.RETURN,
+                         "super" : tt.SUPER,
+                         "this" : tt.THIS,
+                         "true" : tt.TRUE,
+                         "var" : tt.VAR,
+                         "while" : tt.WHILE}
     
     def scan_tokens(self):
         while(not self.is_at_end()):
@@ -64,9 +80,26 @@ class Scanner:
         else:
             if(self.isdigit(char)):
                 self.number()
+            elif(self.isalpha(char)):
+                self.identifier()
             else:
                 self.interpreter.error(self.line, "Unexpected character.")
     
+    def isalpha(self, char):
+        return (char >= 'a' and char <= 'z') or (char >='A' and char <= 'Z') or (char == '_')
+
+    def identifier(self):
+        while(self.isalphanumeric(self.peek())):
+            self.advance()
+        text = self.source[self.start : self.current]
+        type_ = self.keywords.get(text)
+        if(type_ == None):
+            type_ = tt.IDENTIFIER
+        self.addToken(type_)
+    
+    def isalphanumeric(self, char):
+        return self.isalpha(char) or self.isdigit(char)
+
     def isdigit(self, char):
         return char >= '0' and char <= '9'
     
@@ -114,8 +147,6 @@ class Scanner:
 
     def advance(self):
         self.current += 1
-        print(len(self.source))
-        print(self.current)
         return self.source[(self.current - 1)]
 
     def addToken(self, type : tt, literal = None):
