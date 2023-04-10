@@ -7,9 +7,9 @@ A compiler reads fliles in one language, translates them and outputs file in ano
   versioin of our own compiler to compile future versions of itself and we can discard the original one
   compiled from the other compiler. This is called **_bootstrapping_**.
   
-### Phases Of A Compiler
+## Phases Of A Compiler
 
-##### Scanning
+### Scanning
 Also known as lexing or lexical analysis.
 ```mermaid
 flowchart LR
@@ -20,7 +20,7 @@ In programming languages, each of these words is called a token.
 
 `var` `average` `=` `(` `min` `+` `max` `)` `/` `2` `;`
 
-##### Parsing
+### Parsing
 This is where our syntax gets a grammar - The ability to compose larger expressions and statements out of smaller parts.
 A parser takes the flat squence of tokens and builds a tree structure that mirrors the nested nature of the grammar.
 These are called **parse trees** or **abstract syntax trees**.
@@ -37,7 +37,7 @@ stateDiagram-v2
 
 Parser also reports **syntax errors**.
 
-##### Static Analysis
+### Static Analysis
 Binding or reolution is the first type of analysis most languages do. For each identifier we find out where that name is defined and wire the two together.
 Scope (the region of source code where a certain name can be used to refer to a certain declaration) checking is done in this very phase.
 
@@ -46,7 +46,7 @@ Statically typed languages also does type checking.
 - Data can also be stored in look-up table with identifiers as keys. This table is also called a symbol table.
 
 
-##### Intermediate Representation
+### Intermediate Representation
 The front end of the pipeline is specific to the source language the program is written in. The back end is concerned with the final architecture where the
 program will run.
 There are multiple ways to represent intermediate code:
@@ -55,7 +55,7 @@ There are multiple ways to represent intermediate code:
 - Static single assignment
 - Continuation passing style
 
-##### Optimization
+### Optimization
 Swapping the users program with a different program that has the same semantics but implements them more efficiently is called optimization.
 Techniques:
 - Constant Folding
