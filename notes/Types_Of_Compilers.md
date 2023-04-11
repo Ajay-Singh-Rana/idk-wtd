@@ -25,6 +25,26 @@ If we compiled it to bytecode we need to start up the VM and load the program in
 Intermediate Representations.
 - These restrict the design of the language.
 
-## Syntax Directed Translation
+### Syntax Directed Translation
 It is a structured technique for building all-at-once compilers. An action is associated with each piece of grammar, usually one that generates output code.
 Whenever the parser matches the chunk of synatx, it executes the action, building up the target code one rule at a time.
+
+## Tree Walk Interpreters
+- Some languages begin executing code right after passing it to an AST (with maybe a bit of static analysis applied). 
+- To run the program the interpreter traverses the syntax tree one branch and leaf at a time, evaluating each node as it goes.
+- These are suitable for little languages and tend to be slow.
+
+## Transpilers
+We write a front end for our language. Then, in the back-end, instead of doing all the work to lower the semantics to some primitive target language, we produce a string of valid source code for some other language that is about as high level as ours.
+Now, we use the existing compilation tools for that language as an escape route.
+- Also called **source-to-source** compiler or **transcompiler**.
+
+## Just-In-Time Compilation
+We load platform independent bytecode and tehn compile it to native code for the computer architecture.
+- JIT compilers are a good way of implementing machine independent and dynamic compilers. But these are unable to work closely with the hardware.
+
+## Compilers Versus Interpreters
+- Compiling is an implementation technique that involves translating a source language to some other usually lower-level form.
+- When a language implementation ***"is a compiler"***, it translates source code to some other form but doesn't execute it.
+- Wehn an implementation ***"is an itnerpreter"*** it takes the source code and executes it immediately.
+
