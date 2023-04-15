@@ -3,7 +3,7 @@ import sys
 from matplotlib import pyplot as plt
 from random import choice
 from parse_comments import parse_comments
-
+import pydot
 
 # colors
 colors = ['Black', 'Red', 'Magenta', 'Yellow', 'Blue']
@@ -36,13 +36,21 @@ def draw_pie(chart_header, commands, width):
 file_name = sys.argv[1]
 
 with open(file_name,'r') as file:
-    commands = file.read()
+    text = file.read()
 
-commands = parse_comments(commands) # parse (remove) comments
+
+commands = parse_comments(text) # parse (remove) comments
 commands = commands.strip().split('\n')
 chart_header = commands[0].strip().split(' ')
 
-if(chart_header[0].lower() == "pie"):
+if(chart_header[0].lower() in ["strict", "graph", "digraph"]):
+    graph_string = text
+    print(text)
+    graph = pydot.graph_from_dot_data(graph_string)
+    print(graph)
+    with open("sample.svg", "wb") as file:
+        file.write(graph[0].create_svg())
+elif(chart_header[0].lower() == "pie"):
     draw_pie(chart_header, commands, width = 1)
 elif(chart_header[0].lower() == 'donut'):
     draw_pie(chart_header, commands, width = 0.35)
