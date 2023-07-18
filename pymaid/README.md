@@ -140,6 +140,7 @@ Sales 2012,2014,2015,2016 60,40,100,80 Red
 ```
 
 #### Scatter Plot
+##### Syntax:
 ```Syntax
 Scatter Figure_Title(without spaces, optional) # Legend_Title(without spaces, optional)
 X_Points(comma separated, without space) Y_Points(comma separated, without space) Colors(comma separated, optional) EdgeColors(comma separated, Optional) Alpha(comma separated, Optional)

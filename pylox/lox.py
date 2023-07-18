@@ -12,7 +12,7 @@ class Lox:
     def run_file(self,path):     # this function is used to run a script
         with open(path, 'r') as file:
             text = file.read()
-        run(text)
+        self.run(text)
 
     def run_prompt(self):   # this function launches the REPL
         while True:
@@ -20,12 +20,12 @@ class Lox:
                 print(">", end = " ")
                 line = input()
             except EOFError:
-                break;
+                break
             self.run(line)
 
     def report(self,line_num, where, message):
         print(f"[line {line_num} ] Error {where} : {message}")
-        self.had_error = True;
+        self.had_error = True
 
     def error(self,line_num, message):
         self.report(line_num, "", message)
@@ -43,6 +43,6 @@ if(len(sys.argv) > 2):
 elif(len(sys.argv) == 2):
     interpreter.run_file(sys.argv[1])
 else:
-    interpreter.run_prompt();
+    interpreter.run_prompt()
 
 
