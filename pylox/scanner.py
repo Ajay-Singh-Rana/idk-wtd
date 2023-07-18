@@ -112,7 +112,7 @@ class Scanner:
             self.advance()  # consume the "."
             while(self.isdigit(self.peek())):
                 self.advance()
-        self.addToken(tt.NUMBER, float(self.source[self.start, self.current]))
+        self.addToken(tt.NUMBER, float(self.source[self.start : self.current]))
     
     def peek_next():
         if(self.current + 1 >= len(self.source)):
