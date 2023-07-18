@@ -142,6 +142,13 @@ Sales 2012,2014,2015,2016 60,40,100,80 Red
 #### Scatter Plot
 ```Syntax
 Scatter Figure_Title(without spaces, optional) # Legend_Title(without spaces, optional)
-X_Points(comma separated, without space) Y_Points(comma separated, without space) Colors(comma separated, optional) EdgeColors(comma separated, Optional) Alpha(comma separated, Optional) 
+X_Points(comma separated, without space) Y_Points(comma separated, without space) Colors(comma separated, optional) EdgeColors(comma separated, Optional) Alpha(comma separated, Optional)
+```
+##### Example:
+```pmd
+Scatter Check
+1,2,3,4,5 0.5,0.4,0.8,1.8,2 Green,Red,Yellow,Brown,Black #2a8dce,#2becff,#3defce,#3344fd,#2896a1 0.9,0.4,0.6,0.7,0.9
+```
+
 ##### Output:
-![Line_Plot_Example](assets/Sales.png)
+![Line_Plot_Example](assets/Check.png)
