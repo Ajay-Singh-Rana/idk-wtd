@@ -19,7 +19,7 @@ Mango 4
 - [x] Line Plots
 - [x] Pie Charts
 - [x] Bar Plot
-- [ ] Scatter Plots
+- [x] Scatter Plots
 - [ ] Flowcharts
 - [ ] Documentation (underway)
 - [ ] GUI Application
